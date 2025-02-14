@@ -1,4 +1,4 @@
-const aiService = require("../services/ai.service");
+const aiService = require("../services/ai.service"); // ✅ Ensure this line exists
 
 module.exports.getReview = async (req, res) => {
     const code = req.body.code;
@@ -8,9 +8,10 @@ module.exports.getReview = async (req, res) => {
     }
 
     try {
-        const response = await aiService.generateContent(code); // Correct function call
+        const response = await aiService.generateContent(code); // ✅ Call aiService correctly
         res.send(response);
     } catch (error) {
+        console.error("Error generating content:", error);
         res.status(500).json({ error: 'Failed to generate response' });
     }
 };

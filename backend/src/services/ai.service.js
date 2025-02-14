@@ -51,11 +51,17 @@ const model = genAI.getGenerativeModel({
 async function generateContent(prompt) {
     try {
         const result = await model.generateContent(prompt);
-        return result.response.text();
+        console.log("Raw AI Response:", result); // Debugging
+        
+        const textResponse = result?.response?.text();
+        if (!textResponse) throw new Error("Empty AI response");
+
+        return textResponse;
     } catch (error) {
         console.error("Error generating content:", error);
-        throw error;
+        return "AI failed to generate a response.";
     }
 }
+
 
 module.exports = { generateContent };

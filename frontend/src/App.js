@@ -17,9 +17,15 @@ function App() {
   }, []);
 
   async function reviewCode() {
-    const response = await axios.post("http://localhost:3001/ai/get-response", { code });
-    setReview(response.data);
+    try {
+      const response = await axios.post("http://localhost:3001/ai/get-response", { code });
+      setReview(response.data);
+    } catch (error) {
+      console.error("API request failed:", error);
+      setReview("❌ Error: Could not fetch review. Check console for details.");
+    }
   }
+
 
   return (
     <main>
