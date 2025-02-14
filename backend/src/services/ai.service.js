@@ -45,16 +45,17 @@ const model = genAI.getGenerativeModel({
         ✔ Used with open() to ensure the file is automatically closed.
         ✔ Added file_path as a parameter for flexibility.
         ✔ Implemented exception handling to prevent crashes if the file is missing.
-
-
     `
 });
 
 async function generateContent(prompt) {
-    const result = await model.generateContent(prompt);
-
-
-    return result.response.text();
+    try {
+        const result = await model.generateContent(prompt);
+        return result.response.text();
+    } catch (error) {
+        console.error("Error generating content:", error);
+        throw error;
+    }
 }
 
 module.exports = { generateContent };
